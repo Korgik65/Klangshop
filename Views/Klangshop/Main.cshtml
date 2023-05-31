@@ -1,0 +1,149 @@
+﻿@{
+    ViewBag.Title = "Головна сторінка";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@Styles.Render("~/Content/main.css")
+@Styles.Render("~/Content/main2.css")
+
+<main>
+    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true"
+                    aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Images1/slide1(1).jpg" height="100%">
+                <div class="container">
+                    <div class="carousel-caption text-start shad" @*style="background-color: black; color: white; padding-left: 20px; padding-right: 20px; opacity: 0.8"*@>
+                        <div >
+                            <h1>Cort G100 (OPB)</h1>
+                            <p>
+                                Серія G - еволюція вінтажних інструментів. Ця колекція гітар з двома вирізами пропонує широкий вибір
+                                інструментів для всебічного задоволення потреб будь-якого гітариста.
+                            </p>
+                        </div>
+                        <p>@Html.ActionLink("Дізнатися більше", "Product", "", new { @name = "Cort G100 (OPB)" }, new { @class = "btn btn-lg btn-primary" })</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/Images1/slide2(1).jpg" height="100%">
+                <div class="container">
+                    <div class="carousel-caption text-start shad">
+                        <h1>Cort KX500MS (Star Dust Black)</h1>
+                        <p>
+                            Електрогітари серії KX створені для сучасних музикантів, які віддають належне класичним інструментам,
+                            які витримали випробування часом. Ергономічна та елегантна форма корпусу з двома вирізами та виразними
+                            вигинами, тонкий "швидкісний" гриф, широкий тональний діапазон роблять гітари цієї серії чудовим вибором 
+                            для будь-якого стилю музики.
+                        </p>
+                        <p>@Html.ActionLink("Дізнатися більше", "Product", "", new { @name = "Cort KX500MS (Star Dust Black)" }, new { @class = "btn btn-lg btn-primary" })</p>
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-item">
+                <img src="~/Images1/slide3(1).jpg" height="100%">
+                <div class="container">
+                    <div class="carousel-caption text-start shad">
+                        <h1>Cort G250LH (Black)</h1>
+                        <p>
+                            Спеціально для шульги, компанія Cort пропонує одну з найпопулярніших моделей електрогітар - G250 у
+                            лівому виконанні. Витончений і зручний корпус, якісне тремоло та гнучка конфігурація звукознімачів дають
+                            тобі можливість грати практично у будь-якому музичному стилі.
+                        </p>
+                        <p>@Html.ActionLink("Дізнатися більше", "Product", "", new { @name = "Cort G250LH (Black)" }, new { @class = "btn btn-lg btn-primary" })</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Попередня</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Далі</span>
+        </button>
+    </div>
+    <div class="container marketing">
+        <div class="row">
+            <div class="col-lg-4">
+                <img class="mb-3" src="~/Images1/delivery.png">
+                <h2 class="fw-normal">Швидка доставка</h2>
+                <p>
+                    Ми доставимо Ваш товар протягом трьох днів. Завдяки тісній співпраці з доставками, ми гарантуємо цілісність
+                    товару під час пересилання.
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <img class="mb-3" src="~/Images1/cart.png">
+                <h2 class="fw-normal">Вибір є завжди!</h2>
+                <p>
+                    Завдяки співпраці з багатьма виробниками музичного обладнання, ми надаємо широкий вибір товарів для наших
+                    покупців. Завжди в наявності!
+                </p>
+            </div>
+            <div class="col-lg-4">
+                <img class="mb-3" src="~/Images1/cashback.png">
+                <h2 class="fw-normal">Кешбек</h2>
+                <p>
+                    Ми підтримуємо програму винагород, за якою покупці можуть повертати собі відсоток від витрачених коштів під
+                    час здійснення покупок.
+                </p>
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">Ми у Facebook!</h2>
+                <p class="lead">
+                    У нашій групі Facebook Ви зможете прочитати новини про наш магазин, залишити відгуки та
+                    зв'язатися з екпесртами в галузі музики. Приєднуйтесь!
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img src="~/Images1/facebook-logo.svg" alt="Facebook Logo" width="300" height="300">
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7 order-md-2">
+                <h2 class="featurette-heading fw-normal lh-1">Ми у YouTube!</h2>
+                <p class="lead">
+                    На нашому каналі YouTube Ви зможете переглянути огляди на музичні інструменти з нашого
+                    магазину, подискутувати та добре провести час. Підписуйтесь!
+                </p>
+            </div>
+            <div class="col-md-5 order-md-1">
+                <img src="~/Images1/youtube-logo.svg" alt="YouTube Logo" width="300" height="300">
+            </div>
+        </div>
+        <hr class="featurette-divider">
+        <div class="row featurette">
+            <div class="col-md-7">
+                <h2 class="featurette-heading fw-normal lh-1">Ми у Twitter!</h2>
+                <p class="lead">
+                    На нашій стрічці Twitter ми прозоро публікуємо всю інформацію про нашу співпрацю з різними
+                    магазинами, звітуємо про оновлення сайту, а також ділимося своїми планами на майбутнє. Заходьте!
+                </p>
+            </div>
+            <div class="col-md-5">
+                <img src="~/Images1/twitter-logo.svg" alt="Twitter Logo" width="300" height="300">
+            </div>
+        </div>
+        <hr class="featurette-divider">
+    </div>
+</main>
+
+@section Footer {
+    <div class="container">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; @Html.ActionLink("Конфіденційність", "Privacy")</p>
+    </div>
+}

@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="uk">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title> KlangShop | @ViewBag.Title</title>
+    <link rel="icon" type="image/x-icon" href="~/Images1/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+            crossorigin="anonymous"></script>
+    <script src="~/Scripts/jquery-3.6.3.js"></script>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <link href="~/Content/main2.css" />
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" data-bs-theme="dark">
+            <div class="container-fluid">
+                <img src="~/Images1/logo.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+                <div style="padding-left: 10px">
+                    @Html.ActionLink("KlangShop", "Main", new { }, htmlAttributes: new { @class = "navbar-brand" })
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02"
+                        aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        @if (Request.IsAuthenticated)
+                        {
+                            if (ViewBag.Title == "Головна сторінка")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Товари")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Кошик")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Профіль")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Політика конфіденційності")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Оформлення замовлення")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Список замовлень")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                            }
+                            else if (ViewBag.Title != "Головна сторінка" || ViewBag.Title != "Товари" || ViewBag.Title != "Кошик" || ViewBag.Title != "Профіль" || ViewBag.Title != "Політика конфіденційності" || ViewBag.Title != "Оформлення замовлення")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                            }
+
+                            if (User.IsInRole("Admin"))
+                            {
+                                <li class="nav-item d-flex align-items-center">
+                                    <a class="navbar-text align-items-center" href="/Admin/Products" style="text-decoration: none; color: dodgerblue">(Admin Area)</a>
+                                    @*@Html.ActionLink("Admin Area", "Pages", "Admin", new { area = "Admin" }, htmlAttributes: new { @class = "navbar-text", style = "color: dodgerblue" })*@
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Вийти", "Logout", new { }, htmlAttributes: new { @class = "nav-link", style = "color: red" })
+                                </li>
+                            }
+
+                            if (User.IsInRole("Customer"))
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.Action("CustNavPartial", "Klangshop")
+                                    @Html.ActionLink("Вийти", "Logout", new { }, htmlAttributes: new { @class = "nav-link", style = "color: red" })
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            if (ViewBag.Title == "Головна сторінка")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                                <li class="nav-item">
+                                    @Html.ActionLink("Увійти", "Login", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Товари")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Увійти", "Login", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Кошик")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Увійти", "Login", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Авторизація")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Вхід", "Login", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Реєстрація")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Реєстрація", "Login", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Політика конфіденційності")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Увійти", "Login", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                            }
+                            else if (ViewBag.Title != "Головна сторінка" || ViewBag.Title != "Товари" || ViewBag.Title != "Кошик" || ViewBag.Title != "Профіль" || ViewBag.Title != "Політика конфіденційності" || ViewBag.Title != "Оформлення замовлення")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Увійти", "Login", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                            }
+                            else if (ViewBag.Title == "Оформлення замовлення")
+                            {
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Головна", "Main", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Товари", "ProductList", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item d-flex align-items-center">
+                                    @Html.ActionLink("Кошик", "CartList", new { }, htmlAttributes: new { @class = "nav-link active" })
+                                    @Html.Action("CartPartial", "Klangshop")
+                                </li>
+                                <li class="nav-item align-items-center">
+                                    @Html.ActionLink("Увійти", "Login", new { }, htmlAttributes: new { @class = "nav-link" })
+                                </li>
+                            }
+                        }
+                    </ul>
+                    @RenderSection("Search", false)
+                </div>
+            </div>
+        </nav>
+    </header>
+    @RenderBody()
+    <footer>@RenderSection("Footer", false)</footer>
+    @RenderSection("scripts", false)
+</body>
+
+</html>

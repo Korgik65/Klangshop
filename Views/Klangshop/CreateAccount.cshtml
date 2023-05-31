@@ -1,0 +1,142 @@
+﻿@model Klangshop.Models.ViewModels.Account.CustomerVM
+
+@{
+    ViewBag.Title = "Реєстрація";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<main>
+    <div class="container">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <br /><br />
+            <div class="py-5 text-center">
+                <img class="mx-auto mb-4" src="~/Images1/login.png" alt="Реєстрація" width="80" height="80">
+                <h1 class="fw-light">Реєстрація</h1>
+                <p class="lead text-muted">
+                    Якщо Ви вже зареєстровані, перейдіть на сторінку входу в систему.
+                </p>
+            </div>
+
+            <div class="m-auto w-75">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <h4>Введіть Ваші дані:</h4>
+                <hr />
+
+                <div class="row g-2 px-lg-5">
+                    <div class="col-sm-6">
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.LName, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.LName, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.LName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", placeholder = "klangshop2022@gmail.com" } })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label" })
+                            <div class="input-group">
+                                <span class="input-group-text">+380</span>
+                                <div class="form-control p-0 border-0">
+                                    @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control", placeholder = "05012345678", style = "border-radius: 0 5px 5px 0" } })
+                                </div>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Index, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.EditorFor(model => model.Index, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Index, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.PasswordFor(model => model.Password, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "control-label" })
+                            <div>
+                                @Html.PasswordFor(model => model.ConfirmPassword, htmlAttributes: new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group float-end px-lg-5">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Зареєструватися" class="btn btn-lg btn-primary" />
+                    </div>
+                </div>
+                <br /><br /><br /><br />
+            </div>
+        }
+    </div>
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; @Html.ActionLink("Конфіденційність", "Privacy")</p>
+    </div>
+}

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<Klangshop.Areas.Admin.ViewModels.OrdersForAdminVM>
+
+@{
+    ViewBag.Title = "Список замовлень";
+}
+
+<main class="bg-light">
+    <div class="container py-5">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="~/Images1/cart.png" width="80" height="80">
+            <h1 class="fw-light">Список всіх замовлень</h1>
+        </div>
+        <div class="m-auto">
+            <div class="px-lg-5 px-md-4 px-sm-0">
+                @if (!Model.Any())
+                {
+                    <h3 class="text-center">Замовлення відсутні</h3>
+                }
+                else
+                {
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.OrderNumber)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.CustomerName)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductsAndAmount)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Date)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.TotalPrice)
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OrderNumber)
+                                </td>
+                                <td>
+                                    @foreach (var name in item.CustomerName)
+                                    {
+                                        @name.Key @name.Value
+                                    }
+                                </td>
+                                <td>
+                                    @foreach (var prod in item.ProductsAndAmount)
+                                    {
+                                        @prod.Key @:x @prod.Value
+                                        <br />
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Date)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TotalPrice) грн
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                }
+            </div>
+        </div>
+
+    </div>
+    <br /><br /><br /><br /><br /><br />
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; <a href="/Klangshop/Privacy">Конфіденційність</a></p>
+    </div>
+}

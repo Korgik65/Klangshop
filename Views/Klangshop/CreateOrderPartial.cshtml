@@ -1,0 +1,240 @@
+﻿@model Klangshop.Models.ViewModels.OrderVM
+
+@{
+    ViewBag.Title = "Оформлення замовлення";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <div class="album py-5 bg-light">
+                <div class="container">
+                    <div class="py-5 text-center">
+                        <img class="d-block mx-auto mb-4" src="~/Images/logo.png" alt="KlangShop логотип" width="80" height="80">
+                        <h2>Оформлення замовлення</h2>
+                        <p class="lead text-muted">
+                            Введіть Ваші особисті дані для оформлення замовлення.
+                        </p>
+
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="@*col-md-7 col-lg-8*@ justify-content-center px-lg-5">
+                        <div class="row g-2">
+                            <div class="col-sm-6">
+                                <label for="firstName" class="form-label">Ім'я</label>
+                                <input type="text" class="form-control" id="firstName" required>
+                                <div class="invalid-feedback">
+                                    Вкажіть ваше ім'я
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <label for="lastName" class="form-label">Прізвище</label>
+                                <input type="text" class="form-control" id="lastName" required>
+                                <div class="invalid-feedback">
+                                    Прізвище повинно бути дійсним.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="email" class="form-label">Електронна пошта</label>
+                                <input type="email" class="form-control" id="email">
+                                <div class="invalid-feedback">
+                                    Будь ласка, введіть дійсну адресу електронної пошти для отримання оновлень про доставку.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="tel" class="form-label">Номер телефону</label>
+                                <input type="tel" class="form-control" id="tel">
+                                <div class="invalid-feedback">
+                                    Будь ласка, вкажіть дійсний номер телефону.
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="address" class="form-label">Адреса</label>
+                                <input type="text" class="form-control" id="address" required>
+                                <div class="invalid-feedback">
+                                    Будь ласка, введіть адресу доставки.
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <label for="country" class="form-label">Країна</label>
+                                <select class="form-select" id="country" required>
+                                    <option>Україна</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Будь ласка, оберіть дійсну країну.
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="state" class="form-label">Місто</label>
+                                <select class="form-select" id="state" required>
+                                    <option>Харків</option>
+                                    <option>Дніпро</option>
+                                    <option>Полтава</option>
+                                    <option>Запоріжжя</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Будь ласка, вкажіть дійсне місто.
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <label for="zip" class="form-label">Індекс</label>
+                                <input type="text" class="form-control" id="zip" required>
+                                <div class="invalid-feedback">
+                                    Необхідно вказати поштовий індекс.
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="my-4 col-md-12">
+                        <h4 class="mb-3">Оплата</h4>
+                        <div class="my-3">
+                            <div class="form-check">
+                                <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
+                                <label class="form-check-label" for="credit">Кредитна картка</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
+                                <label class="form-check-label" for="debit">Дебетова картка</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="cash" name="paymentMethod" type="radio" class="form-check-input" required>
+                                <label class="form-check-label" for="cash">Готівка</label>
+                            </div>
+                        </div>
+                        <hr class="my-4 col-md-12">
+                        <h4 class="mb-3">Обрати доставку</h4>
+                        <div class="my-3">
+                            <div class="form-check">
+                                <input id="pickup" name="delivery" type="radio" class="form-check-input" checked required>
+                                <label class="form-check-label" for="pickup">Самовивіз</label>
+                            </div>
+                            <div class="form-check">
+                                <input id="post" name="delivery" type="radio" class="form-check-input" required>
+                                <label class="form-check-label" for="post">Нова пошта</label>
+                            </div>
+                        </div>
+                        <hr class="my-4 col-md-12">
+                        @*<button class="col-md-12 btn btn-primary btn-lg" type="submit">Замовити</button>*@
+                        <a href="#" class="addtocart col-lg btn btn-primary btn-lg float-end">Замовити</a>
+                        <div style="display: none">
+                            <div class="spinner-border text-primary">
+                                <span class="visually-hidden">Загрузка...</span>
+                            </div>
+                            <div class="alert alert-success">
+                                Дякуємо за замовлення!
+                            </div>
+                        </div>
+                    </div>
+
+                    @*<div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.LName, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.LName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Phone, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Country, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Country, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.City, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Index, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Index, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Index, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Amount, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Amount, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Payment, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Payment, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Payment, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Delivery, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Delivery, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Delivery, "", new { @class = "text-danger" })
+                        </div>
+                    </div>*@
+
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Замовити" class="btn btn-primary" />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; @Html.ActionLink("Конфіденційність", "Privacy")</p>
+    </div>
+}

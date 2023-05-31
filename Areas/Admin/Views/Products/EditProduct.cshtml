@@ -1,0 +1,494 @@
+﻿@model Klangshop.Models.ViewModels.ProductVM
+
+@{
+    ViewBag.Title = "Редагувати товар";
+}
+
+<main class="bg-light">
+    <div class="container">
+
+        @using (Html.BeginForm("EditProduct", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <br /><br />
+            <div class="py-5 text-center">
+                <h1 class="fw-light">Редагувати товар</h1>
+                <p class="lead text-muted">
+                </p>
+            </div>
+
+            <div class="form-horizontal m-auto w-75">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @if (TempData["SM"] != null)
+                {
+                    <div class="alert alert-success">
+                        @TempData["SM"]
+                    </div>
+                }
+                <hr />
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group mb-2">
+                            @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-12">
+
+                                @Html.DropDownListFor(model => model.CategoryId, Model.Categories, new { @class = "form-control form-select" })
+                                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-12">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            @Html.LabelFor(model => model.Available, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-12">
+                                @Html.DropDownListFor(model => model.Available, new SelectList(new List<Object> { new { value = "0", text = "Нема в наявності" }, new { value = "1", text = "В наявності" } }, "value", "text"), new { @class = "form-control form-select" })
+                                @*@Html.EditorFor(model => model.Available, new { htmlAttributes = new { @class = "form-control" } })*@
+                                @Html.ValidationMessageFor(model => model.Available, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            @Html.LabelFor(model => model.Maker, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.Maker, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.Maker, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            @Html.LabelFor(model => model.MakerSite, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-12">
+                                @Html.EditorFor(model => model.MakerSite, new { htmlAttributes = new { @class = "form-control" } })
+                                @Html.ValidationMessageFor(model => model.MakerSite, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-2">
+                            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label" })
+                            <div class="col-md-12">
+                                @if (Model.Image != null)
+                                {
+                                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                                    <br />
+                                    <img src="~/Images/Uploads/Products/@Model.Id/@Model.Image" class="img-fluid" />
+                                    <br />
+                                    <br />
+                                }
+
+                                <input class="form-control" type="file" name="file" id="imageUpload" />
+                                <br />
+                                <img id="imgpreview" src="~/Images1/no_image.png" />
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        @if (Model.CategoryId == 1)
+                        {
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Forma, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Forma, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Forma, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.KilStrun, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.KilStrun, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.KilStrun, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Kolir, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Kolir, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Kolir, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Deka, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Deka, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Deka, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Grif, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Grif, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Grif, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.KilLad, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.KilLad, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.KilLad, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Zvukoznim, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Zvukoznim, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Zvukoznim, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else if (Model.CategoryId == 2)
+                        {
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Forma, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Forma, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Forma, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.KilStrun, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.KilStrun, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.KilStrun, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Kolir, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Kolir, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Kolir, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Deka, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Deka, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Deka, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Grif, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Grif, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Grif, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.KilLad, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.KilLad, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.KilLad, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Zvukoznim, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Zvukoznim, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Zvukoznim, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else if (Model.CategoryId == 3)
+                        {
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Kolir, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Kolir, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Kolir, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Deka, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Deka, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Deka, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Grif, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Grif, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Grif, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Rozmir, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Rozmir, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Rozmir, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else if (Model.CategoryId == 4)
+                        {
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.KilStrun, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.KilStrun, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.KilStrun, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Kolir, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Kolir, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Kolir, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Deka, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Deka, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Deka, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Grif, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Grif, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Grif, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.KilLad, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.KilLad, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.KilLad, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Zvukoznim, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Zvukoznim, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Zvukoznim, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Typ, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Typ, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Typ, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else if (Model.CategoryId == 5)
+                        {
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.KilStrun, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.KilStrun, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.KilStrun, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Priznach, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Priznach, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Priznach, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Material, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Material, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Material, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Kalibr, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Kalibr, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Kalibr, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                        else if (Model.CategoryId == 6)
+                        {
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Typ, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Typ, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Typ, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Potuzhnist, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Potuzhnist, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Potuzhnist, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Efect, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Efect, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Efect, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.AnalogVihod, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.AnalogVihod, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.AnalogVihod, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group mb-2">
+                                @Html.LabelFor(model => model.Vaga, htmlAttributes: new { @class = "control-label" })
+                                <div class="col-md-12">
+                                    @Html.EditorFor(model => model.Vaga, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Vaga, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group mb-2">
+                    <div class=" float-end">
+                        <input type="submit" value="Зберегти зміни" class="btn btn-lg btn-success" />
+                    </div>
+                </div>
+                <div>
+                    @Html.ActionLink("Повернутися до товарів", "Index", new { }, new { @class = "btn btn-sm btn-outline-primary" })
+                </div>
+            </div>
+        }
+        <div class="m-auto w-75">
+            <br />
+            <hr />
+            @if (!Model.GalleryImages.Any())
+            {
+                <h4>Галерея зображень для цього товару відсутня</h4>
+            }
+
+            @*@using (Html.BeginForm("SaveGalleryImages", "Products", FormMethod.Post, new { enctype = "multipart/form-data", @class = "dropzone", id = "dropzoneForm" }))
+            {
+                <div class="fallback">
+                    <input type="file" name="file" multiple="" />
+                    <input type="submit" value="Upload" />
+                </div>
+            }*@
+
+            <br /><br />
+            @foreach (var image in Model.GalleryImages)
+            {
+                <div style="display: inline-block">
+                    <img src="/Images/Uploads/Products/@Model.Id/Gallery/@image" width="150" height="100" />
+                    @Html.ActionLink("Видалити", "DeleteImage", "Products", new { @class = "btn btn-sm btn-danger deleteimage", data_name = image })
+                </div>
+            }
+        </div>
+        <br /><br />
+    </div>
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; <a href="/Klangshop/Privacy">Конфіденційність</a></p>
+    </div>
+}
+
+<link href="~/Scripts/dropzone/basic.css" rel="stylesheet" />
+<link href="~/Scripts/dropzone/dropzone.css" rel="stylesheet" />
+
+@Styles.Render("~/Scripts/dropzone/basic.css")
+@Styles.Render("~/Scripts/dropzone/dropzone.css")
+
+@section Scripts
+{
+    <script type="text/javascript" src="~/Scripts/dropzone/dropzone.js"></script>
+    <script type="text/javascript">
+    // Скрипт предпросмотра картинок
+        $(function () {
+
+            /* Preview selected image */
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $("img#imgpreview")
+                            .attr("src", e.target.result)
+                            .width(300)
+                            .height(200);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imageUpload").change(function() {
+                readURL(this);
+            });
+
+            /*-----------------------------------------------------------*/
+
+            /* Dropzone js*/
+
+            Dropzone.options.dropzoneForm = {
+                acceptedFiles: "image/*",
+                init: function () {
+                    this.on("complete",
+                        function (file) {
+                            if (this.getUploadingFiles().length === 0 && this.getQueuedFiles().length === 0) {
+                                location.reload();
+                            }
+                        });
+                    this.on("sending",
+                        function (file, xhr, formData) {
+                            formData.append("id",  @Model.Id);
+                        });
+                }
+            };
+
+            /*-----------------------------------------------------------*/
+
+            /* Delete gallery image */
+
+            $("a.deleteimage").click(function(e) {
+                e.preventDefault();
+
+                if (!confirm("Підтвердження видалення")) return false;
+
+                var $this = $(this);
+                var url = "/Admin/Products/DeleteImage";
+                var imageName = $this.data("name");
+
+
+                $.post(url, { id: @Model.Id, imageName: imageName }, function(data) {
+                    $this.parent()/*.parent().parent()*/.fadeOut("slow");
+                });
+            });
+
+
+            /*-----------------------------------------------------------*/
+        });
+    </script>
+}

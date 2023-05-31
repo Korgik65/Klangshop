@@ -1,0 +1,209 @@
+﻿@model Klangshop.Models.ViewModels.ProductVM
+
+@{
+    ViewBag.Title = Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<main>
+    <div class="container py-5">
+        <div class="p-3 mb-4 bg-light rounded-3">
+            <div class="container-fluid py-lg-4">
+                <div class="row">
+                    <div class="col-lg-6">
+                        @if (Model.Image == null)
+                        {
+                            <img src="~/Images1/no_image.png" width="300" height="300" class="align-self-center">
+                        }
+                        else
+                        {
+                            <a class="fancybox" href="/Images/Uploads/Products/@Model.Id/@Model.Image">
+                                <img src="/Images/Uploads/Products/@Model.Id/@Model.Image" class="img-fluid">
+                            </a>
+                        }
+                        <h4>Галерея:</h4>
+                        <div class="col-12 fancyboxdiv">
+                            <div class="row g-0">
+                                @foreach (var item in Model.GalleryImages)
+                                {
+                                    <div class="col">
+                                        <a class="fancybox" rel="gallery1" href="~/Images/Uploads/Products/@Model.Id/Gallery/@item">
+                                            <img src="~/Images/Uploads/Products/@Model.Id/Gallery/@item" width="150" height="100" /> 
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <h1 class="display-5 fw-bold">@Model.Name</h1>
+                        <br>
+                        <div>
+                            <p class="mb-1">Виробник: <a href="@Model.MakerSite">@Model.Maker</a></p>
+                            <p>Наявність: @if (Model.Available == 1)
+                                           {
+                                               <font color="green" >В наявності</font>
+                                           }
+                                           else 
+                                           { 
+                                               <font color="red">Нема в наявності</font>
+                                           }</p>
+                        </div>
+                        <br>
+                        @if (Model.Price == 0)
+                        {
+                             <h2>Ціна: 0 грн</h2>
+                        }
+                        else
+                        {
+                             <h2>Ціна: @Model.Price.ToString("## ###.## грн")</h2>
+                        }
+                        <div class="addtocart">
+                            @if (Model.Available == 1)
+                            {
+                                <a href="#" class="addtocart btn btn-primary btn-lg">Додати до кошикa</a>
+                                <div class="spinner-border text-primary">
+                                    <span class="visually-hidden">Загрузка...</span>
+                                </div>
+                                <div class="alert alert-success">
+                                    Товар успішно додано до кошика!
+                                </div>
+                            }
+                            else
+                            {
+                                <a href="#" class="btn btn-primary btn-lg disabled">Додати до кошикa</a>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row align-items-md-stretch">
+            <div class="col-md-6">
+                <div class="h-100 p-lg-5 p-4 text-bg-dark rounded-3">
+                    <h2>Опис</h2>
+                    <p>
+                        @Html.DisplayFor(model => model.Description)
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="h-100 p-lg-5 p-4 bg-light border rounded-3">
+                    <h2>Характеристики</h2>
+                    @if (Model.CategoryId == 1)
+                    {
+                        <p>
+                            Форма корпусу: @Model.Forma;
+                            <br>Кількість струн: @Model.KilStrun;
+                            <br>Колір: @Model.Kolir;
+                            <br>Дека: @Model.Deka;
+                            <br>Гриф: @Model.Grif;
+                            <br>Кількість ладів: @Model.KilLad;
+                            <br>Звукознімачі: @Model.Zvukoznim.
+                        </p>
+                    }
+                    else if (Model.CategoryId == 2)
+                    {
+                        <p>
+                            Форма корпусу: @Model.Forma;
+                            <br>Кількість струн: @Model.KilStrun;
+                            <br>Колір: @Model.Kolir;
+                            <br>Дека: @Model.Deka;
+                            <br>Гриф: @Model.Grif;
+                            <br>Кількість ладів: @Model.KilLad;
+                            <br>Звукознімачі: @Model.Zvukoznim.
+                        </p>
+                    }
+                    else if (Model.CategoryId == 3)
+                    {
+                        <p>
+                            Колір: @Model.Kolir;
+                            <br>Дека: @Model.Deka;
+                            <br>Гриф: @Model.Grif;
+                            <br>Розмір: @Model.Rozmir.
+                        </p>
+                    }
+                    else if (Model.CategoryId == 4)
+                    {
+                        <p>
+                            Кількість струн: @Model.KilStrun;
+                            <br>Колір: @Model.Kolir;
+                            <br>Дека: @Model.Deka;
+                            <br>Гриф: @Model.Grif;
+                            <br>Кількість ладів: @Model.KilLad;
+                            <br>Звукознімачі: @Model.Zvukoznim;
+                            <br>Тип: @Model.Typ.
+                        </p>
+                    }
+                    else if (Model.CategoryId == 5)
+                    {
+                        <p>
+                            Кількість струн: @Model.KilStrun;
+                            <br>Призначення: @Model.Priznach;
+                            <br>Матеріал: @Model.Material;
+                            <br>Калібр: @Model.Kalibr.
+                        </p>
+                    }
+                    else if (Model.CategoryId == 6)
+                    {
+                        <p>
+                            Тип: @Model.Typ;
+                            <br>Рейтинг потужності: @Model.Potuzhnist;
+                            <br>Ефекти: @Model.Efect;
+                            <br>Аналогові виходи: @Model.AnalogVihod;
+                            <br>Вага: @Model.Vaga.
+                        </p>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; @Html.ActionLink("Конфіденційність", "Privacy")</p>
+    </div>
+}
+
+@section Scripts
+{
+    <link href="~/Content/main3.css" rel="stylesheet" />
+    <link href="~/Content/jquery.fancybox.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery.fancybox.js"></script>
+    <script type="text/javascript">
+        /*Add to Cart*/
+        $(function () {
+            $("a.addtocart").click(function (e) {
+                e.preventDefault();
+
+                $(".spinner-border").addClass("ib");
+
+                var url = "@Url.Action("AddToCartPartial","Klangshop")";
+
+                $.get(url, { id: @Model.Id},
+                    function (data) {
+                        $(".ajaxcart").html(data);
+                    }).done(function () {
+                    $(".spinner-border").removeClass("ib");
+                    $(".alert").addClass("ib");
+
+                    setTimeout(function () {
+                        $(".alert").fadeOut("fast");
+                        $(".alert").removeClass("ib");
+                    }, 2000);
+                });
+            });
+        });
+
+        $(function () {
+            $(".fancybox").fancybox();
+        });
+    </script>
+}

@@ -1,0 +1,176 @@
+﻿@model IEnumerable<Klangshop.Models.ViewModels.ProductVM>
+
+@{
+    ViewBag.Title = "Товари";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+@Styles.Render("~/Content/PagedList.css")
+
+<main class="bg-light">
+    <div class="container py-5">
+        <div class="py-5 text-center">
+            <h1 class="fw-light">Список всіх товарів</h1>
+        </div>
+        <hr />
+        <div class="container">
+            <p class="text-center fw-light fs-3">Сортування товарів за категоріями:</p>
+            <div class="text-center">
+                <select class="form-select w-50 m-auto" aria-label=".form-select-lg" id="SelectCategory" name="SelectCategory">
+                    <option value="0">Всі</option>
+                    @foreach (var item1 in ViewBag.Categories)
+                    {
+                        if (ViewBag.SelectedCat == item1.Value)
+                        {
+                            <option selected="selected" value="@item1.Value">@item1.Text</option>
+                        }
+                        else
+                        {
+                            <option value="@item1.Value">@item1.Text</option>
+                        }
+                    }
+                </select>
+            </div>
+
+        </div>
+        <br />
+
+        <div class="m-auto">
+
+            <div class="px-lg-5 px-md-4 px-sm-0">
+                <p>
+                    @Html.ActionLink("Додати товар", "AddProduct", new { }, htmlAttributes: new { @class = "btn btn-success" })
+                </p>
+                <hr />
+                @if (!Model.Any())
+                {
+                    <h3 class="text-center">Товари відсутні</h3>
+                }
+                else
+                {
+                    <table class="table">
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Image)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Available)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Price)
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in ViewBag.onePageOfProducts)
+                        {
+                            <tr>
+                                <td>
+                                    @if (item.Image == null)
+                                    {
+                                        <a href="/Admin/Products/EditProduct/@item.Id">
+                                            <img src="~/Images1/no_image.png" width="100" height="100" class="align-self-center">
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a href="/Admin/Products/EditProduct/@item.Id">
+                                            <img src="~/Images/Uploads/Products/@item.Id/@item.Image" width="100" />
+                                        </a>
+                                    }
+                                </td>
+                                <td>
+                                    @item.Name
+                                </td>
+                                <td>
+                                    @if (item.Available == 1)
+                                    {
+                                        <font color="green">В наявності</font>
+                                    }
+                                    else
+                                    {
+                                        <font color="red">Нема в наявності</font>
+                                    }
+                                </td>
+                                <td>
+                                    @item.Price грн
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Змінити", "EditProduct", new { id = item.Id }, new { @class = "btn btn-sm btn-primary" }) |
+                                    @Html.ActionLink("Видалити", "DeleteProduct", new { id = item.Id }, new { @class = "btn btn-sm btn-danger delete" })
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                }
+            </div>
+        </div>
+
+    </div>
+
+    <div class="text-center">
+        @Html.PagedListPager((IPagedList)ViewBag.onePageOfProducts, page => Url.Action("Index", new { page, catId = ViewBag.SelectedCat }))
+    </div>
+    <br /><br /><br />
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; <a href="/Klangshop/Privacy">Конфіденційність</a></p>
+    </div>
+}
+
+@section Search{
+    <div>
+        @using (Html.BeginForm("Index", "Products", FormMethod.Post))
+        {
+            <div class="col d-inline-flex">
+                @Html.TextBox("searchname", null, new { @class = "form-control me-2", placeholder = "Пошук...", type = "search" })
+            </div>
+            <div class="col d-inline-flex">
+                <button class="btn btn-primary" type="submit">Знайти</button>
+            </div>
+
+        }
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            /* Select product from specified category */
+
+            $("#SelectCategory").on("change", function () {
+                var url = $(this).val();
+
+                if (url) {
+                    window.location = "/Admin/Products?catId=" + url;
+                }
+                return false;
+            });
+
+            /*-----------------------------------------------------------*/
+
+            /* Confirm page deletion */
+
+            $("a.delete").click(function () {
+                if (!confirm("Ви точно хочете видалити товар?")) return false;
+            });
+
+            /*-----------------------------------------------------------*/
+        });
+    </script>
+
+}

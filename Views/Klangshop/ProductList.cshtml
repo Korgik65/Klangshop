@@ -1,0 +1,141 @@
+﻿@model IEnumerable<Klangshop.Models.ViewModels.ProductVM>
+
+@{
+    ViewBag.Title = "Товари";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using PagedList.Mvc;
+@using PagedList;
+
+@Styles.Render("~/Content/main.css")
+@Styles.Render("~/Content/PagedList.css")
+
+<main>
+    <div class="py-4 text-center">
+        <img class="d-block mx-auto mb-4" src="~/Images1/logo.png" alt="KlangShop логотип" width="80" height="80">
+        <h1 class="fw-light">Усі товари</h1>
+        <p class="lead text-muted">
+            На цій сторінці Ви можете переглянути всі доступні товари магазину KlangShop.
+            Приємних покупок!
+        </p>
+    </div>
+    <hr>
+    <div class="container">
+        <p class="text-center fw-light fs-3">Сортування товарів за категоріями:</p>
+        <div class="text-center">
+            <select class="form-select form-select-lg w-50 m-auto" aria-label=".form-select-lg" id="SelectCategory" name="SelectCategory">
+                <option value="0">Всі</option>
+                @foreach (var item in ViewBag.Categories)
+                {
+                    if (ViewBag.SelectedCat == item.Value)
+                    {
+                        <option selected="selected" value="@item.Value">@item.Text</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Value">@item.Text</option>
+                    }
+                }
+            </select>
+        </div>
+
+    </div>
+    <br />
+
+    <div class="album py-5 bg-light">
+        <div class="container">
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                @foreach (var p in ViewBag.onePageOfProducts)
+                {
+                    <div class="col">
+                        <div class="card shadow-sm h-100">
+                            @if (p.Image == null)
+                            {
+                                <img src="~/Images1/no_image.png" width="260" height="260" class="align-self-center">
+                            }
+                            else
+                            {
+                                <img src="/Images/Uploads/Products/@p.Id/@p.Image">
+                            }
+                            <h4 class="text-center">@p.Name</h4>
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <div class="row">
+                                        <div class="col-12 text-truncate">
+                                            @p.Description
+                                        </div>
+                                    </div>
+                                </p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        @Html.ActionLink("Переглянути", "Product", new { name = p.Name }, htmlAttributes: new { @class = "btn btn-sm btn-outline-primary" })
+                                    </div>
+                                    @if (p.Price == 0)
+                                    {
+                                        <p class="text-end fw-bold">0 грн</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-end fw-bold">@p.Price.ToString("## ###.## грн")</p>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+        <div class="text-center">
+            @Html.PagedListPager((IPagedList)ViewBag.onePageOfProducts, page => Url.Action("ProductList", new { page, catId = ViewBag.SelectedCat }))
+        </div>
+    </div>
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; @Html.ActionLink("Конфіденційність", "Privacy")</p>
+    </div>
+}
+
+@section Search{
+    <div>
+        @using (Html.BeginForm("ProductList", "Klangshop", FormMethod.Post))
+        {
+            <div class="col d-inline-flex">
+                @Html.TextBox("searchname", null, new { @class = "form-control me-2", placeholder = "Пошук...", type = "search" })
+            </div>
+            <div class="col d-inline-flex">
+                <button class="btn btn-primary" type="submit">Знайти</button>
+            </div>
+
+        }
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+        $(function () {
+
+            /* Select product from specified category */
+
+            $("#SelectCategory").on("change", function () {
+                var url = $(this).val();
+
+                if (url) {
+                    window.location = "/Klangshop/ProductList?catId=" + url;
+                }
+                return false;
+            });
+
+            /*-----------------------------------------------------------*/
+
+        });
+    </script>
+}

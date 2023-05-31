@@ -1,0 +1,288 @@
+﻿@model IEnumerable<Klangshop.Models.ViewModels.CartVM>
+
+@{
+    ViewBag.Title = "Кошик";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int count = 1;
+}
+
+<main class="bg-light">
+    <div class="container py-5">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="~/Images1/logo.png" alt="KlangShop логотип" width="80" height="80">
+            <h2>Кошик товарів</h2>
+        </div>
+        <div class="px-lg-5 m-auto w-75">
+            @*<div class="col-md-5 col-lg-4 order-md-last">*@
+            @if (ViewBag.Message != null)
+            {
+                <h4 class="d-flex justify-content-between align-items-center">
+                    <span class="text-primary">Ваш кошик @ViewBag.Message</span>
+                    @Html.Action("CartPartial", "Klangshop")
+                </h4>
+                <hr>
+            }
+            else
+            {
+                <h4 class="d-flex justify-content-between align-items-center">
+                    <span class="text-primary">Ваш кошик</span>
+                    @Html.Action("CartPartial", "Klangshop")
+                </h4>
+                <hr>
+                <table class="table">
+                    <tr>
+                        <th>
+
+                        </th>
+                        <th>
+                            Назва
+                        </th>
+                        <th>
+                            Кіл-ть
+                        </th>
+                        <th>
+                            Ціна
+                        </th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                <button type="button" class="btn-close remproduct" aria-label="Close" data-id="@item.ProductId"></button>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductName)
+                            </td>
+                            <td class="am@(item.ProductId)">
+                                <a href="#" class="decproduct badge bg-dark" data-id="@item.ProductId">-</a>
+                                @Html.DisplayFor(modelItem => item.Amount)
+                                <a href="#" class="incproduct badge bg-dark" data-id="@item.ProductId">+</a>
+                            </td>
+                            <td class="total@(item.ProductId)">
+                                @Html.DisplayFor(modelItem => item.TotalPrice)
+                            </td>
+                        </tr>
+                    }
+                    <tr>
+                        <td class="grandtotal" colspan="4" align="right">
+                            <b>Всього: <span>@ViewBag.GrandTotal грн</span></b>
+                        </td>
+                    </tr>
+                </table>
+                <br />
+
+                @Html.ActionLink("Список замовлень", "AllOrders", new { }, htmlAttributes: new { @class = "btn btn-primary" })
+
+                <br />
+
+                @*<div class="">
+                    <h4 class="mb-3">Обрати доставку</h4>
+                    <div class="my-3">
+                        <div class="form-check">
+                            <input id="pickup" value="Самовивіз" name="delivery" type="radio" class="form-check-input" checked required>
+                            <label class="form-check-label" for="pickup">Самовивіз</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="post" value="Нова пошта" name="delivery" type="radio" class="form-check-input" required>
+                            <label class="form-check-label" for="post">Нова пошта</label>
+                        </div>
+                    </div>
+                    <hr />
+                </div>*@
+
+                if (Request.IsAuthenticated)
+                {
+                    <div class="float-end">
+                        <div class="paypaldiv">
+                                <form class="paypalform" action="https://www.sandbox.paypal.com/us/cgi-bin/webscr" method="post">
+                                    <input type="hidden" name="cmd" value="_cart">
+                                    <input type="hidden" name="upload" value="1" />
+                                    <input type="hidden" name="business" value="sb-ew9w125938830@business.example.com">
+
+                                    @foreach (var item in Model)
+                                    {
+                                        <input type="hidden" name="item_name_@count" value="@item.ProductName">
+                                        <input type="hidden" name="amount_@count" value="@item.Price">
+                                        <input type="hidden" name="quantity_@count" value="@item.Amount">
+                                        count++;
+                                    }
+
+                                    <input type="hidden" name="currency_code" value="EUR">
+                                    <input type="image" src="http://www.paypal.com/en_US/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
+                                </form>
+                        </div>
+
+                        <div class="placeorder">
+                            <div class="spinner-border text-primary">
+                                <span class="visually-hidden">Загрузка...</span>
+                            </div>
+                            @*<div class="alert alert-success">
+                                Дякуємо за замовлення!
+                            </div>*@
+                            <a href="/Klangshop/AllOrders" target="_blank" class="placeorder col-lg btn btn-primary btn-lg">Оформити замовлення</a>
+                        </div>
+
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <div class="alert alert-warning">
+                            Увійдіть в обліковий запис для оформлення замовлення.
+                        </div>
+                    </div>
+                    <a href="/Klangshop/Login" class="col-lg btn btn-primary btn-lg float-end">Оформити замовлення</a>
+                }
+            }
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; @Html.ActionLink("Конфіденційність", "Privacy")</p>
+    </div>
+}
+
+@section Scripts
+{
+    <style>
+        .spinner-border {
+            display: none;
+        }
+
+        .ib {
+            display: inline-block !important;
+        }
+    </style>
+    <script type="text/javascript">
+        /* Increment product */
+        $(function () {
+
+            $("a.incproduct").click(function (e) {
+                e.preventDefault();
+
+                var productId = $(this).data("id");
+                var url = "@Url.Action("IncrementProduct","Klangshop")";
+
+                $.getJSON(url, { productId: productId }, function (data) {
+                    location.reload();
+                    $("td.am" + productId).html(data.am);
+
+                    var price = data.am * data.price;
+                    var priceHtml = price.toFixed(2);
+
+                    $("td.total" + productId).html(priceHtml);
+
+                    var gt = parseFloat($("td.grandtotal span").text());
+                    var grandtotal = (gt + data.price).toFixed(2);
+
+                    $("td.grandtotal span").text(grandtotal);
+                }).done(function (data) {
+                    var url2 = "/cart/PaypalPartial";
+
+                    $.get(url2,
+                        {},
+                        function (data) {
+                            $("div.paypaldiv").html(data);
+                        });
+                });
+            });
+        });
+        /*-----------------------------------------------------------*/
+        /* Decrement product */
+        $(function () {
+
+            $("a.decproduct").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                var productId = $(this).data("id");
+                var url = "@Url.Action("DecrementProduct", "Klangshop")";
+
+                $.getJSON(url, { productId: productId }, function (data) {
+                    location.reload();
+                    if (data.am == 0) {
+                        $this.parent().fadeOut("fast", function () {
+                            location.reload();
+                        });
+                    }
+                    else {
+                        $("td.am" + productId).html(data.qty);
+
+                        var price = data.am * data.price;
+                        var priceHtml = price.toFixed(2);
+
+                        $("td.total" + productId).html(priceHtml);
+
+                        var gt = parseFloat($("td.grandtotal span").text());
+                        var grandtotal = (gt - data.price).toFixed(2);
+
+                        $("td.grandtotal span").text(grandtotal);
+                    }
+                    location.reload();
+                }).done(function (data) {
+                    var url2 = "/cart/PaypalPartial";
+
+                    $.get(url2,
+                        {},
+                        function (data) {
+                            $("div.paypaldiv").html(data);
+                        });
+                });
+            });
+        });
+        /*-----------------------------------------------------------*/
+        /* Remove product */
+        $(function () {
+
+            $("button.remproduct").click(function (e) {
+                e.preventDefault();
+
+                var $this = $(this);
+                var productId = $(this).data("id");
+                var url = "@Url.Action("RemoveProduct", "Klangshop")";
+
+                $.get(url, { productId: productId }, function (data) {
+                    location.reload();
+                });
+            });
+        });
+        /*-----------------------------------------------------------*/
+
+        /* Place order */
+        $(function () {
+            $("a.placeorder").click(function (e) {
+                e.preventDefault();
+
+                $(".spinner-border").addClass("ib");
+
+                var $this = $(this);
+                var url = "@Url.Action("PlaceOrder", "Klangshop")";
+
+                $.post(url, {},
+                    function (data) {
+                        $(".ajaxbg span").text("Thank you.");
+                    }).done(function () {
+                        $(".spinner-border").removeClass("ib");
+                        setTimeout(function () {
+                            $('form input[name = "submit"]').click();
+                        }, 1000);
+                        //$(".alert-success").addClass("ib");
+
+                        //setTimeout(function () {
+                        //    $(".alert-success").fadeOut("fast");
+                        //    $(".alert-success").removeClass("ib");
+                        //}, 2000);
+                    });
+            });
+        });
+    </script>
+    <script type="text/javascript" src="~/Scripts/cart.js"></script>
+}

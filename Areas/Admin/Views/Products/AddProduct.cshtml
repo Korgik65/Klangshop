@@ -1,0 +1,154 @@
+﻿@model Klangshop.Models.ViewModels.ProductVM
+
+@{
+    ViewBag.Title = "Додати товар";
+}
+
+<main class="bg-light">
+    <div class="container">
+
+        @using (Html.BeginForm("AddProduct", "Products", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            <br /><br />
+            <div class="py-5 text-center">
+                <h1 class="fw-light">Додати товар</h1>
+                <p class="lead text-muted">
+                </p>
+            </div>
+
+            if (TempData["SM"] != null)
+            {
+                <div class="alert alert-success">
+                    @TempData["SM"]
+                </div>
+            }
+
+            <div class="form-horizontal m-auto w-75 g-3">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <hr />
+                <div class="form-group mb-2">
+                    @Html.LabelFor(model => model.CategoryId, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-6">
+
+                        @Html.DropDownListFor(model => model.CategoryId, Model.Categories, "Виберіть категорію", new { @class = "form-control form-select" })
+                        @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-6">
+                        @Html.TextAreaFor(model => model.Description, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(model => model.Available, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-6">
+                        @Html.DropDownListFor(model => model.Available, new SelectList(new List<Object> { new { value = "0", text = "Нема в наявності" }, new { value = "1", text = "В наявності" } }, "value", "text"), new { @class = "form-control form-select" })
+                        @*@Html.EditorFor(model => model.Available, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @Html.ValidationMessageFor(model => model.Available, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(model => model.Maker, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.Maker, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Maker, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(model => model.MakerSite, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-6">
+                        @Html.EditorFor(model => model.MakerSite, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.MakerSite, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label" })
+                    <div class="col-md-6">
+                        @*@Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })*@
+                        <input class="form-control" type="file" name="file" id="imageUpload" />
+                        <br />
+                        <img id="imgpreview" src="~/Images1/no_image.png" />
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group mb-2">
+                    <div class=" float-end">
+                        <input type="submit" value="Додати" class="btn btn-lg btn-success" />
+                    </div>
+                </div>
+                <div>
+                    @Html.ActionLink("Повернутися до товарів", "Index", new { }, new { @class = "btn btn-sm btn-outline-primary" })
+                </div>
+            </div>
+        }
+        
+        <br /><br />
+    </div>
+</main>
+
+@section Footer {
+    <div class="container text-muted py-5">
+        <p class="float-end mb-1"><a class="btn btn-outline-dark" href="#">^</a></p>
+        <p class="mb-1" style="word-wrap: normal">+38&nbsp;(050)&nbsp;980&#8209;98&#8209;42</p>
+        <p class="mb-1">klangshop2022@gmail.com</p>
+        <p class="mb-1">&copy; @DateTime.Now.Year, KlangShop &middot; <a href="/Klangshop/Privacy">Конфіденційність</a></p>
+    </div>
+}
+
+@section Scripts
+{
+    <script type="text/javascript">
+    // Скрипт предпросмотра картинок
+        $(function () {
+
+            /* Preview selected image */
+
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        $("img#imgpreview")
+                            .attr("src", e.target.result)
+                            .width(300)
+                            .height(200);
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $("#imageUpload").change(function() {
+                readURL(this);
+            });
+
+            /*-----------------------------------------------------------*/
+
+        });
+    </script>
+}
